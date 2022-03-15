@@ -1,0 +1,120 @@
+body { margin: 0px; }
+
+/* both maps are full screen. */
+#storyMap, #pickerMap {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Hidden by default. Toggled via buttons */
+section#create{
+  display: none;
+}
+
+
+.overlay{
+  position: absolute;
+  width:100%;
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 43%);
+  z-index:1;
+  display: flex;
+  margin: 0;
+}
+
+
+/* navigation bar */
+#navigation{
+  top:0px;
+}
+
+#navigation #logo{
+  display:block;
+  margin:0 auto 0 0;
+  width: 200px;
+  padding: 20px;
+}
+#navigation #logo img{
+  width: 100%;
+}
+
+#navigation button{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+#navigation button svg{
+  width: 3rem;
+  fill: #231F20;
+}
+#navigation button:hover svg{ 
+  fill: #F9A11B;
+}
+
+
+/* Form to add new stories. */
+#createForm{ 
+  background: #F9A11BDD;
+  bottom: 0px;
+}
+#createForm form{
+  padding: 1rem;
+  display: flex; 
+  margin: 0; 
+}
+#createForm .speechBubble {
+  width: 2em; 
+  overflow: hidden;
+}
+#createForm  .speechBubble .tail{
+  position: relative;
+  background: white; 
+  width: 100%; 
+  height: 100%;
+  transform: rotate(-30deg); 
+  top: -50%;
+  left: 10%;
+}
+#createForm textarea{ 
+  box-sizing: border-box;
+  padding: 1em;
+  border: 0;
+  font-size: 1.5em;
+  resize: none;
+  width: 80%;
+  border-radius: 0 10px 10px 10px;
+}
+#createForm button{ 
+  flex-grow:1 ;
+  align-self: flex-end;
+  cursor: pointer;
+    border-radius: 10px;
+    font-weight: 900; 
+    letter-spacing: 0.25em;
+    color: #fff;
+    background: #000;
+    border: none; 
+    padding: 0 1em;
+    height: 4em;
+    margin-left: 1em;
+     
+}
+
+
+#refreshButton{ 
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 73%);
+  border: none;
+  display: none;
+}
+
+
+#refreshButton svg{
+  width: 3rem;
+  fill: #13be3e;
+}
+#refreshButton:hover svg{ 
+  fill: #F9A11B;
+}

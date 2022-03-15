@@ -1,0 +1,56 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />-->
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="favicon.png" />
+</head>
+<body>
+
+  <nav id="navigation" class="overlay">
+    <a id="logo" href="/">
+      <img src="logo.svg">
+    </a>
+    <button id="createButton"> 
+      <!-- SVG icon via https://fonts.google.com/icons -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+    </button>
+    <button id="mapButton">
+      <!-- SVG icon via https://fonts.google.com/icons -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM10 5.47l4 1.4v11.66l-4-1.4V5.47zm-5 .99l3-1.01v11.7l-3 1.16V6.46zm14 11.08l-3 1.01V6.86l3-1.16v11.84z"/></svg>
+    </button>
+  </nav>
+
+  
+  <section id="map">
+    <div id="storyMap"></div>
+    <button id="refreshButton">
+      <!-- SVG icon via https://fonts.google.com/icons -->
+      <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+    </button>
+  </section>
+
+
+  <section id="create">
+    <div id="pickerMap"></div>
+    <div id="createForm" class="overlay">
+      <form>
+        <div class="speechBubble" >
+          <div class="tail"></div> 
+        </div>
+        <textarea id="storyText" cols="120" rows="5" placeholder="Tell me a story..."></textarea>
+        
+        <!-- Button has type="button" (vs the default "submit"). Thus,
+          JavaScript is free to process the form, without page reload. -->
+        <button id="goButton" type="button">GO</button>
+      </form>
+    </div> 
+  </section>
+
+
+
+  
+<script src="script.js"></script>
+</body>
+</html>
