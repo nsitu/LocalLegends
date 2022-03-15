@@ -1,4 +1,7 @@
-body { margin: 0px; }
+body { 
+  margin: 0px; 
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 /* both maps are full screen. */
 #storyMap, #pickerMap {
@@ -84,9 +87,22 @@ section#create{
   width: 80%;
   border-radius: 0 10px 10px 10px;
 }
-#createForm button{ 
+#createForm #submitArea{
   flex-grow:1 ;
-  align-self: flex-end;
+  padding-left: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+#createForm #submitArea label{
+  color:#a77120;
+  font-size: 0.8em;
+  margin-bottom: auto;
+  max-width: 10em;
+}
+
+#createForm #submitArea button{ 
+   
   cursor: pointer;
     border-radius: 10px;
     font-weight: 900; 
@@ -95,9 +111,7 @@ section#create{
     background: #000;
     border: none; 
     padding: 0 1em;
-    height: 4em;
-    margin-left: 1em;
-     
+    height: 4em;  
 }
 
 

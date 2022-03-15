@@ -1,4 +1,5 @@
-/*  This is the frontend of the Local Legends app. It runs in the browser.
+/*
+ This is the frontend of the Local Legends app. It runs in the browser.
  Fetches our Google API key from the backend (NodeJS)  
  Fetches and initializes Google Maps from Google. 
  Fetches stories from MongoDB via the backend (NodeJS) 
@@ -14,8 +15,9 @@ const mapSection = document.querySelector("section#map");
 const mapButton = document.querySelector("#mapButton");
 
 const createSection = document.querySelector("section#create");
-const createButton = document.querySelector("#createButton");
 const createForm = document.querySelector("#createForm");
+const createText = document.querySelector('#createText');
+const createButton = document.querySelector("#createButton");
 
 const goButton = document.querySelector("#goButton");
 
@@ -92,7 +94,7 @@ function initMap(){
           },
           draggable: true 
       });
-      //Listen for drag events
+      //Listen for drag events on the picker marker
       google.maps.event.addListener(pickerMarker, 'dragend', (event) => {
         pickerMap.panTo( pickerMarker.getPosition() )
         console.log ( pickerMarker.getPosition())
@@ -100,9 +102,14 @@ function initMap(){
       //Listen for any clicks on the map.
       google.maps.event.addListener(pickerMap, 'click',  (event) =>  {                
         pickerMarker.setPosition(event.latLng); 
-        pickerMap.panTo( pickerMarker.getPosition() )
-        console.log ( pickerMarker.getPosition())
+        pickerMap.panTo( pickerMarker.getPosition() ) 
       });  
+      
+      // listen for drag events on the map. 
+      google.maps.event.addListener(pickerMap, 'dragend',  () =>  {                
+        pickerMarker.setPosition(pickerMap.getCenter()); 
+        pickerMap.panTo( pickerMarker.getPosition() ) 
+      }); 
     });
   }
 }
@@ -211,28 +218,36 @@ fetch("apikey")
     console.error(err);
   });
 
-
-createButton.addEventListener('click', (event)=>{
+function createMode() {
+  console.log('this is createMode');
+  /* Reset the text area to be blank initially. */
+  createText.value = '';
+  /* Set the position of the create map to match the storyMap. */ 
+  pickerMap.setZoom(storyMap.getZoom());
+  pickerMap.setCenter(storyMap.getCenter()); 
+  pickerMarker.setPosition(storyMap.getCenter());
+  /** Show and hide elements as needed */
   createButton.classList.add('active');
   mapButton.classList.remove('active'); 
   mapSection.style.display = "none"; 
   createSection.style.display = "block";
-})
-
-mapButton.addEventListener('click', (event)=>{
+}
+function mapMode() {
+  console.log('this is mapMode');
+  /** Show and hide elements as needed */
   createSection.style.display = "none"; 
   mapSection.style.display = "block";
   createButton.classList.remove('active');
   mapButton.classList.add('active');
-})
+}
 
-goButton.addEventListener('click', (event)=>{
+createButton.addEventListener('click', () => createMode() )
+mapButton.addEventListener('click', () => mapMode() )
+
+goButton.addEventListener('click', () => {
   /* Get the location of the picker */ 
   let lat = pickerMarker.getPosition().lat()
-  let lng = pickerMarker.getPosition().lng() 
-  /* To target the textarea, use the button's "previous sibling" 
-  See also: https://developer.mozilla.org/en-US/docs/Web/API/Node/previousSibling */ 
-  let storyText = event.target.previousElementSibling.value;
+  let lng = pickerMarker.getPosition().lng()  
   /* Send the story to NodeJS for insertion into Mongo.*/ 
   fetch('story', {
     "method" : "POST",
@@ -240,7 +255,7 @@ goButton.addEventListener('click', (event)=>{
       'Content-Type': 'application/json' 
     },
     "body": JSON.stringify({ 
-      "content" : storyText, 
+      "content" : createText.value, 
       "location":{
         "type" : "Point",
         "coordinates" : [lng, lat] 
@@ -250,25 +265,23 @@ goButton.addEventListener('click', (event)=>{
   .then(response => response.json())
   .then(json => {
     console.log(json)
+    mapMode()
+    refreshButton.click();
     // TODO, go back to the main map and refresh 
     // with the new story at the center.
   })
 })
 
-refreshButton.addEventListener('click', (event)=>{
+refreshButton.addEventListener('click', ()=>{
   // get center of map and run a new query. 
-  let mapCenter = {
+   
+  activeMarkers.map(marker => marker.setMap(null) )
+  activeMarkers= []; // reset to a blank array.  
+
+  fetchStories({
     lat: storyMap.getCenter().lat(),
     lng: storyMap.getCenter().lng()
-  };
-
-  activeMarkers.map(marker => marker.setMap(null) )
-  activeMarkers= []; // reset to a blank array. 
-
-
-  // reset the bounds of the map
-
-  fetchStories(mapCenter)
+  })
 
   // Alternately you could query using the map's current bounds
 
