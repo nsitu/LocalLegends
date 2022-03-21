@@ -4,7 +4,7 @@
   It listens for requests from the frontend.
   It fetches communicates with MongoDB.
 
-  Location Picker via:
+  Location Picker adapted from:
   https://thisinterestsme.com/google-maps-api-location-picker-example/
 
 */
