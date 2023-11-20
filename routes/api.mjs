@@ -1,6 +1,6 @@
 import express from 'express' 
 const router = express.Router()
-import Story from "../models/Story"
+import Story from "../models/Story.mjs"
 
 
 // Store your Google Maps API Key as an  environment variable called GOOGLE_KEY 
